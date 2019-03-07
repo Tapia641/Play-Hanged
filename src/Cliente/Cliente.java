@@ -11,8 +11,8 @@ public class Cliente extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("ClienteGUI.fxml"));
-        primaryStage.setTitle("Lado del servidor");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("Lado del Cliente");
+        primaryStage.setScene(new Scene(root, 488, 408));
         primaryStage.show();
     }
 
