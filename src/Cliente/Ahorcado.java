@@ -70,10 +70,10 @@ public class Ahorcado {
         SocketCliente = new Socket(direccion, puerto);
         CanalSalida = new DataOutputStream(SocketCliente.getOutputStream());
         CanalEntrada = new DataInputStream(SocketCliente.getInputStream());
-        System.out.println(id + " envía saludo");
-        String palabra1 = "";
+        System.out.println("Cliente " + id + " conectado.");
+        String palabra1;
         palabra1 = CanalEntrada.readUTF();
-        System.out.println(palabra1);
+        System.out.println("Palabra recibida: " + palabra1);
         CanalEntrada.close();
         CanalSalida.close();
         return palabra1;
@@ -160,7 +160,7 @@ public class Ahorcado {
         }
 
         if (gano) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle("¡Felicidades!");
             alert.setHeaderText(null);
             alert.setContentText("Ganaste :) ");

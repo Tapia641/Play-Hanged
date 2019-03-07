@@ -12,7 +12,7 @@ public class Cliente extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("ClienteGUI.fxml"));
         primaryStage.setTitle("Lado del Cliente");
-        primaryStage.setScene(new Scene(root, 488, 408));
+        primaryStage.setScene(new Scene(root, 746, 559));
         primaryStage.show();
     }
 

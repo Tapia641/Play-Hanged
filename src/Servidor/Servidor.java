@@ -57,6 +57,7 @@ public class Servidor extends Thread {
 
     private String Random() {
         int num = (int) (Math.random() * (diccionario.length));
+
         return diccionario[num];
     }
 }
