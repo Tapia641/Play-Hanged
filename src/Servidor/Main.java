@@ -1,9 +1,10 @@
 package Servidor;
 
 
-import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -21,6 +22,17 @@ public class Main  {
             ss = new ServerSocket(1234);
             System.out.println("\t[OK]");
             int idSession = 1;
+
+            try
+            {
+                String thisIp = InetAddress.getLocalHost().getHostAddress();
+                int thisPort = ss.getLocalPort();
+                System.out.println("IP:"+thisIp+ " Port: " + thisPort);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
 
             while (true) {
                 Socket socket;

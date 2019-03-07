@@ -50,7 +50,20 @@ public class ControladorCiente implements Initializable {
 
     @FXML
     public void ClickEnviar(javafx.scene.input.MouseEvent event) {
-        this.juego.validarPalabra(Campo.getCharacters().charAt(0));
+        //OBTENEMOS EL PRIMER CARACTER DE LA ENTRADA
+        char C = Campo.getCharacters().charAt(0);
+
+        //HACEMOS UN UPPERCASE A ESE CARACTER SI LLEGARA A SER MINUSCULA
+        if (C >= 'a' && C <='z'){
+            C = (char) (C + ('A' - 'a'));
+        }
+        System.out.println(C);
+
+        //VALIDAMOS
+        this.juego.validarPalabra(C);
+
+        //LIMPIAMOS
+        Campo.setText("");
     }
 
     public void ClickConectarse(javafx.scene.input.MouseEvent event) {
