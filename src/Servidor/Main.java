@@ -1,5 +1,6 @@
 package Servidor;
 
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -14,6 +15,8 @@ public class Main {
 
     public static void IniciarServidor() {
         ServerSocket ss;
+        String thisIp = "";
+        int thisPort = 0;
         System.out.print("Inicializando servidor... ");
         try {
             ss = new ServerSocket(1234);
@@ -21,12 +24,13 @@ public class Main {
             int idSession = 1;
 
             try {
-                String thisIp = InetAddress.getLocalHost().getHostAddress();
-                int thisPort = ss.getLocalPort();
-                System.out.println("IP:" + thisIp + " Port: " + thisPort);
+                thisIp = InetAddress.getLocalHost().getHostAddress();
+                thisPort = ss.getLocalPort();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            MostrarInformacion(thisIp,thisPort);
 
             while (true) {
                 Socket socket;
@@ -37,6 +41,14 @@ public class Main {
             }
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+    }
+
+
+    private static void MostrarInformacion(String dir, int port){
+        System.out.println("IP:" + dir + " Port: " + port);
+
     }
 }

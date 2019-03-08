@@ -160,7 +160,7 @@ public class Ahorcado {
         }
 
         if (gano) {
-            Alert alert = new Alert(Alert.AlertType.NONE);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("¡Felicidades!");
             alert.setHeaderText(null);
             alert.setContentText("Ganaste :) ");

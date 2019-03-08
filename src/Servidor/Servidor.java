@@ -1,9 +1,7 @@
 package Servidor;
 
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,25 +12,12 @@ public class Servidor extends Thread {
     private DataOutputStream CanalSalida;
     private DataInputStream CanalEntrada;
 
-    private String[] diccionario = {"ABEJA", "AEROPUERTO", "COMPUTADOR", "OSO",
-            "JAVA", "NEVERA", "PROGRAMA", "INFORMATICA", "COMPUTACION", "COMPUTADOR", "CORAZON", "BANANO", "PLATANO",
-            "AUTOMOVIL", "PERRO", "COLOMBIA", "LONDRES", "CEPILLO", "BRAZO", "CABEZA", "CUERPO", "DEPORTE", "SALUD",
-            "ANONYMOUS", "CUADERNO", "PANTALLA", "UBUNTU", "SEMAFORO", "LINUX", "LOBO", "AMOR", "MOSCA", "ZANAHORIA",
-            "PINGUINO", "HACKER", "SISTEMA", "ELEFANTE", "CASCADA", "JUEGOS", "LARGO", "BONITO", "IMPOSIBLE", "UNIDOS", "ZOMBIE",
-            "MATEMATICAS", "CALCULO", "ALGEBRA", "DICCIONARIO", "BIBLIOTECA", "COCINA", "PELICULA", "COMERCIAL", "GRANDE", "PEQUEÑO",
-            "GATO", "SAPO", "JIRAFA", "FERROCARRIL", "FACEBOOK", "PERSONA", "BICICLETA", "CONTROL", "PANTALON", "AEROSOL",
-            "ERROR", "COPA", "COPA", "PROGRAMADOR", "LICENCIA", "NUEVE", "PROCESADOR", "GARAJE", "MODERNO", "TABLA", "DISCOTECA",
-            "LENGUAJE", "PROGRAMACION", "HERRAMIENTAS", "INTERNET", "EJECUTAR", "PROYECTO", "PERIODICO", "COCODRILO", "TORTUGA", "CABALLO",
-            "APLICACION", "PERA", "SOFTWARE", "ADMINISTRACION", "VENTANA", "MANTENIMIENTO", "INFORMACION", "PRESIDENTE", "PERSONA", "GENTE",
-            "NARANJA", "PRUEBA", "MANZANA", "JARRA", "CELULAR", "TELEFONO", "CONTAMINACION", "COLOR", "ROMANO", "ADIVINAR", "MARCADOR",
-            "INSTRUCCION", "CUADERNO", "CASA", "PALA", "ARBOL", "PUENTE", "PAPEL", "HOJA", "HELICOPTERO", "BARCO", "GOLF", "CARRERA",
-            "TUBERIA", "PLOMERO", "FUTBOL", "BALONCESTO", "ESTADIO", "JEAN", "FUENTE", "LEOPARDO", "REGLA", "PRIMERO", "SEGUNDO",
-            "BLUSA", "CAMISA", "AGUA", "FUEGO", "INDUSTRIA", "AIRE", "TIERRA", "NATURALEZA", "MIERCOLES", "FOTOGRAFIA", "LEON",
-            "TIGRE"};
+    private String[] diccionario = {};
 
     private char[] palabra_secreta;
 
-    public Servidor(Socket socket, int ContCliente) {
+    public Servidor(Socket socket, int ContCliente) throws IOException, ClassNotFoundException {
+        diccionario = CargarPalabras();
 
         this.socketServidor = socket;
 
@@ -59,5 +44,23 @@ public class Servidor extends Thread {
         int num = (int) (Math.random() * (diccionario.length));
 
         return diccionario[num];
+    }
+
+    public static void ExportarPalabras(String[] diccionario) throws IOException {
+        /* LOS GUARDAMOS EN UN .OUT */
+        ObjectOutputStream GuardarObjeto = new ObjectOutputStream(new FileOutputStream("Palabras.txt"));
+        GuardarObjeto.writeObject(diccionario);
+        GuardarObjeto.flush();
+    }
+
+    private String[] CargarPalabras() throws IOException, ClassNotFoundException {
+
+        /* LEEMOS EL OBJETO DEL .OUT */
+        FileInputStream miarchivo = new FileInputStream(new File("Palabras.txt").getAbsolutePath());
+        ObjectInputStream LeerObjeto = new ObjectInputStream(miarchivo);
+        diccionario = (String[]) LeerObjeto.readObject();
+        LeerObjeto.close();
+
+        return diccionario;
     }
 }
